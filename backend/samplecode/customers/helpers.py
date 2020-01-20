@@ -18,3 +18,19 @@ def create_customer(first_name: str, last_name: str, address1: str, address2: st
     db.session.add(customer)
     db.session.commit()
     return customer
+
+
+def edit_customer(customer_id: int):
+    pass
+
+
+def delete_customer(customer_id: int):
+    pass
+
+
+def get_customer(customer_id: int):
+    pass
+
+
+def get_customers():
+    pass

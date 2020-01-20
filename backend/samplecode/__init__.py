@@ -1,7 +1,8 @@
 from environs import Env
 from flask import Flask
 from flask_migrate import Migrate
-from samplecode.database import db
+from .database import db
+from .customers.views import bp as customer_bp
 
 env = Env()
 env.read_env()
@@ -27,11 +28,7 @@ def create_app(testing=False):
     from .postcards.models import Postcard
 
     # # register blueprints
-    # app.register_blueprint(auth_bp)
-    # app.register_blueprint(users_bp)
-    # app.register_blueprint(ladders_bp)
-    # app.register_blueprint(matches_bp)
-    # app.register_blueprint(billing_bp)
-    # app.add_url_rule("/", endpoint="auth.login")
+    app.register_blueprint(customer_bp)
+    app.add_url_rule("/", endpoint="customers.customer-list")
 
     return app
