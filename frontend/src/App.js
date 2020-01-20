@@ -1,8 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { 
+  sayHello,
+} from 'common/helper';
 
 function App() {
+  sayHello();
   return (
     <div className="App">
       <header className="App-header">

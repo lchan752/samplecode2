@@ -1,3 +1,9 @@
+@import 'styles/colors';
+@import "foundation-sites/scss/foundation";
+@import "font-awesome/scss/font-awesome";
+
+@include foundation-everything;
+
 .App {
   text-align: center;
 }
