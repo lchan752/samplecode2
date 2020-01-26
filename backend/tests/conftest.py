@@ -1,8 +1,14 @@
-import pytest
 from samplecode import create_app
 from samplecode.database import db as _db
 from flask_migrate import upgrade as upgrade_database_schema
 from sqlalchemy_utils.functions import drop_database
+from samplecode.customers.models import Customer
+from tests.factories import CustomerFactoryBase
+
+from datetime import datetime
+import pytest
+import factory
+import pytz
 
 
 @pytest.fixture(scope='session')
@@ -41,3 +47,15 @@ def db_session(db, request):
 
     request.addfinalizer(teardown)
     return session
+
+
+@pytest.fixture(scope='function')
+def customer_factory(db_session):
+    class CustomerFactory(CustomerFactoryBase, factory.alchemy.SQLAlchemyModelFactory):
+        class Meta:
+            model = Customer
+            sqlalchemy_session = db_session
+
+        created = datetime.now(pytz.utc)
+
+    return CustomerFactory

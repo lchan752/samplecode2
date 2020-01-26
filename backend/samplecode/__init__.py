@@ -27,7 +27,7 @@ def create_app(testing=False):
     from .customers.models import Customer
     from .postcards.models import Postcard
 
-    # # register blueprints
+    # register blueprints
     app.register_blueprint(customer_bp)
     app.add_url_rule("/", endpoint="customers.customer-list")
 
