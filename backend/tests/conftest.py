@@ -3,6 +3,7 @@ from samplecode.database import db as _db
 from flask_migrate import upgrade as upgrade_database_schema
 from sqlalchemy_utils.functions import drop_database
 from samplecode.customers.models import Customer
+from samplecode.postcards.models import Postcard
 from tests.factories import CustomerFactoryBase
 
 from datetime import datetime
@@ -59,3 +60,14 @@ def customer_factory(db_session):
         created = datetime.now(pytz.utc)
 
     return CustomerFactory
+
+
+@pytest.fixture(scope='function')
+def postcard_factory(db_session, customer_factory):
+    class PostcardFactory(factory.alchemy.SQLAlchemyModelFactory):
+        class Meta:
+            model = Postcard
+            sqlalchemy_session = db_session
+
+        customer = factory.SubFactory(customer_factory)
+    return PostcardFactory

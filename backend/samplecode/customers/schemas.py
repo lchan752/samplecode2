@@ -1,13 +1,11 @@
 from marshmallow import Schema, missing
 from marshmallow.fields import String, Integer, DateTime
-from datetime import datetime
 from samplecode.database import db
 from .models import Customer
-import pytz
 
 
 def create_customer(validated_data):
-    customer = Customer(created=datetime.now(pytz.utc), **validated_data)
+    customer = Customer(**validated_data)
     db.session.add(customer)
     db.session.commit()
     return customer

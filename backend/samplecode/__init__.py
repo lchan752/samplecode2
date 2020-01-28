@@ -3,6 +3,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from .database import db
 from .customers.views import bp as customer_bp
+from .postcards.views import bp as postcard_bp
 
 env = Env()
 env.read_env()
@@ -29,6 +30,7 @@ def create_app(testing=False):
 
     # register blueprints
     app.register_blueprint(customer_bp)
+    app.register_blueprint(postcard_bp)
     app.add_url_rule("/", endpoint="customers.customer-list")
 
     return app

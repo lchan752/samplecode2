@@ -1,8 +1,8 @@
-"""create Customer and Postcard
+"""empty message
 
-Revision ID: 6ccf18c75a55
+Revision ID: 09842601fde6
 Revises: 
-Create Date: 2020-01-20 17:03:12.157215
+Create Date: 2020-01-27 18:32:08.243953
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6ccf18c75a55'
+revision = '09842601fde6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,6 +33,7 @@ def upgrade():
     op.create_table('postcard',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('customer_id', sa.Integer(), nullable=False),
+    sa.Column('created', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['customer_id'], ['customer.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

@@ -1,5 +1,6 @@
 from samplecode.database import db
 from samplecode.postcards.models import Postcard
+from datetime import datetime
 
 
 class Customer(db.Model):
@@ -11,7 +12,7 @@ class Customer(db.Model):
     city = db.Column(db.String(), nullable=False)
     state = db.Column(db.String(), nullable=False)
     code = db.Column(db.String(), nullable=False)
-    created = db.Column(db.DateTime(), nullable=False)
+    created = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
     postcards = db.relationship(Postcard, lazy='select', backref='customer')
 
     def __repr__(self):
