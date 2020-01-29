@@ -5,11 +5,10 @@ from sqlalchemy_utils.functions import drop_database
 from samplecode.customers.models import Customer
 from samplecode.postcards.models import Postcard
 from tests.factories import CustomerFactoryBase
-
-from datetime import datetime
+from factory.fuzzy import FuzzyText
+from datetime import timedelta, datetime
 import pytest
 import factory
-import pytz
 
 
 @pytest.fixture(scope='session')
@@ -57,8 +56,6 @@ def customer_factory(db_session):
             model = Customer
             sqlalchemy_session = db_session
 
-        created = datetime.now(pytz.utc)
-
     return CustomerFactory
 
 
@@ -69,5 +66,9 @@ def postcard_factory(db_session, customer_factory):
             model = Postcard
             sqlalchemy_session = db_session
 
+        created = datetime.utcnow()
         customer = factory.SubFactory(customer_factory)
+        lob_id = FuzzyText()
+        lob_expected_delivery_date = factory.lazy_attribute(lambda x: x.created + timedelta(days=5))
+        lob_url = factory.Faker('image_url')
     return PostcardFactory
