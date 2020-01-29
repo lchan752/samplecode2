@@ -7,9 +7,6 @@ from datetime import datetime
 from dateutil.parser import parse as parse_datetime
 from lob.error import LobError
 import lob
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 def get_postcards(customer_id=None):
@@ -19,7 +16,8 @@ def get_postcards(customer_id=None):
     return qry.all()
 
 
-def create_anniversary_postcards(current=datetime.now, fail_on_first_error=False):
+def create_anniversary_postcards(current=datetime.now()):
+    logger = current_app.logger
     customer_ids_to_send_postcards = set()
 
     threshold = datetime(current.year - 1, current.month, current.day)
@@ -33,12 +31,16 @@ def create_anniversary_postcards(current=datetime.now, fail_on_first_error=False
         customer_ids_to_send_postcards.add(record.customer_id)
 
     qry = db.session.query(Customer).filter(Customer.id.in_(customer_ids_to_send_postcards))
+    success, failure = 0, 0
     for customer in qry:
         try:
             postcard = create_lob_postcard(customer)
             logger.info(f"Sent postcard to customer_id{customer.id}. lob id:{postcard.lob_id}")
+            success += 1
         except LobError as e:
             logger.error(f"Failed to send postcard to customer_id:{customer.id}. lob error:{e}. lob status:{e.http_status}")
+            failure += 1
+    logger.info(f"Done sending anniversary postcards. Success:{success} Failure:{failure}")
 
 
 def create_lob_postcard(customer):
