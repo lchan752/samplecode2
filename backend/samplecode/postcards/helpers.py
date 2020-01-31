@@ -76,3 +76,63 @@ def create_lob_postcard(customer):
     db.session.add(postcard)
     db.session.commit()
     return postcard
+
+
+def create_dummy_postcards():
+    customer1 = Customer(
+        first_name='Monkey',
+        last_name='Kong',
+        address1='123 Sesame Street',
+        address2='',
+        city='New York',
+        state='NY',
+        code='12345',
+    )
+    customer2 = Customer(
+        first_name='Donkey',
+        last_name='Kong',
+        address1='223 Sesame Street',
+        address2='',
+        city='New York',
+        state='NY',
+        code='12345',
+    )
+    customer3 = Customer(
+        first_name='Mickey',
+        last_name='Kong',
+        address1='323 Sesame Street',
+        address2='',
+        city='New York',
+        state='NY',
+        code='12345',
+    )
+    customer1_postcards1 = Postcard(
+        customer=customer1,
+        lob_id="customer1_postcards1",
+        lob_expected_delivery_date=datetime(2018, 4, 15),
+        lob_url="http://google.com",
+    )
+    customer1_postcards2 = Postcard(
+        customer=customer1,
+        lob_id="customer1_postcards2",
+        lob_expected_delivery_date=datetime(2017, 4, 15),
+        lob_url="http://google.com",
+    )
+    customer2_postcards1 = Postcard(
+        customer=customer2,
+        lob_id="customer2_postcards1",
+        lob_expected_delivery_date=datetime(2018, 4, 15),
+        lob_url="http://google.com",
+    )
+    customer2_postcards2 = Postcard(
+        customer=customer2,
+        lob_id="customer2_postcards2",
+        lob_expected_delivery_date=datetime(2017, 4, 15),
+        lob_url="http://google.com",
+    )
+    db.session.add_all([
+        customer1, customer2, customer3,
+        customer1_postcards1, customer1_postcards2,
+        customer2_postcards1, customer2_postcards2,
+    ])
+    db.session.commit()

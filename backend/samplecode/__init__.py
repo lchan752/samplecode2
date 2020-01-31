@@ -1,6 +1,7 @@
 from environs import Env
 from flask import Flask
 from flask_migrate import Migrate
+from flask_cors import CORS
 from .database import db
 from .customers.views import bp as customer_bp
 from .postcards.views import bp as postcard_bp
@@ -28,6 +29,9 @@ def create_app(testing=False):
     # setup database connection
     db.init_app(app)
     Migrate(app, db)
+
+    # setup CORS
+    CORS(app)
 
     # register blueprints
     app.register_blueprint(customer_bp)
