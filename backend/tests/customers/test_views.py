@@ -3,11 +3,12 @@ from tests.factories import CustomerFactoryBase
 from samplecode.customers.models import Customer
 from funcy import project
 import factory
+import json
 
 
 def test_create_customer(client, db_session):
     data = factory.build(dict, FACTORY_CLASS=CustomerFactoryBase)
-    resp = client.post(url_for('customers.customer-list'), data=data)
+    resp = client.post(url_for('customers.customer-list'), data=json.dumps(data), content_type='application/json')
     assert resp.status_code == 200, resp.json
     qry = [getattr(Customer, field_name).like(field_value) for field_name, field_value in data.items()]
     assert db_session.query(Customer).filter(*qry).count() == 1
@@ -18,7 +19,7 @@ def test_update_customer(client, db_session, customer_factory):
     customer = customer_factory(**initial_data)
     db_session.commit()
     updated_data = project(factory.build(dict, FACTORY_CLASS=CustomerFactoryBase), ['first_name', 'last_name'])
-    resp = client.post(url_for('customers.customer-detail', customer_id=customer.id), data=updated_data)
+    resp = client.post(url_for('customers.customer-detail', customer_id=customer.id), data=json.dumps(updated_data), content_type='application/json')
     assert resp.status_code == 200, resp.json
     filter_data = {**initial_data, **updated_data}
     qry = [getattr(Customer, field_name).like(field_value) for field_name, field_value in filter_data.items()]

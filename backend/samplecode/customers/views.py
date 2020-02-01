@@ -17,6 +17,7 @@ from .helpers import (
     get_customers,
     delete_customer,
 )
+import json
 
 bp = Blueprint('customers', __name__, url_prefix='/customers')
 api = Api(bp)
@@ -33,7 +34,7 @@ class CustomerList(Resource):
     def post(self):
         try:
             ser = CustomerSchema()
-            validated_data = ser.load(request.form)
+            validated_data = ser.load(json.loads(request.data))
             customer = create_customer(validated_data=validated_data)
             response_data = ser.dump(customer)
             return response_data, 200
@@ -52,7 +53,7 @@ class CustomerDetail(Resource):
     def post(self, customer_id):
         try:
             ser = CustomerSchema(partial=True)
-            validated_data = ser.load(request.form)
+            validated_data = ser.load(json.loads(request.data))
             customer = update_customer(customer_id=customer_id, validated_data=validated_data)
             response_data = ser.dump(customer)
             return response_data, 200

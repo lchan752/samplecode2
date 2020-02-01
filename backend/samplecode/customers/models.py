@@ -8,7 +8,7 @@ class Customer(db.Model):
     first_name = db.Column(db.String(), nullable=False)
     last_name = db.Column(db.String(), nullable=False)
     address1 = db.Column(db.String(), nullable=False)
-    address2 = db.Column(db.String(), nullable=False)
+    address2 = db.Column(db.String(), nullable=False, default='')
     city = db.Column(db.String(), nullable=False)
     state = db.Column(db.String(), nullable=False)
     code = db.Column(db.String(), nullable=False)
