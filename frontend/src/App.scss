@@ -1,0 +1,12 @@
+@import 'common/common.scss';
+
+.topbar {
+    display: flex;
+    justify-content: center;
+    min-width: 5vh;
+    background-color: $light-gray;
+}
+
+.container {
+    margin: 2rem;
+}

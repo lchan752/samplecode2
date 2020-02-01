@@ -1,0 +1,7 @@
+@import 'common/common.scss';
+
+.customer {
+    &__info {
+        @include callout($primary-color);
+    }
+}

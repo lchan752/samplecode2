@@ -1,0 +1,5 @@
+@import 'common/settings';
+@import "~foundation-sites/scss/foundation";
+@include foundation-everything;
+
+@import 'common/customerform';

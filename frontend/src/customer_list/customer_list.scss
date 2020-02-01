@@ -1,0 +1,24 @@
+@import "common/common.scss";
+
+.customerlist {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    border-bottom: thin solid black;
+  }
+  &__add {
+    @include button($expand: false, $background: $primary-color);
+  }
+  &__actions {
+    @include button-group($spacing: 1rem);
+  }
+  &__edit {
+    @include button($expand: false, $background: $secondary-color);
+    margin-bottom: 0;
+  }
+  &__delete {
+    @include button($expand: false, $background: $alert-color);
+    margin-bottom: 0;
+  }
+}

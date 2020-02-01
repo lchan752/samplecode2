@@ -1,0 +1,36 @@
+@mixin customerform_field($size: 12, $gutters: 1rem) {
+  @include xy-cell($size: $size, $gutters: $gutters, $gutter-type: padding);
+}
+
+.customerform {
+  @include xy-grid();
+  margin-left: 5rem;
+  margin-right: 5rem;
+  &__firstname {
+    @include customerform_field(6);
+  }
+  &__lastname {
+    @include customerform_field(6);
+  }
+  &__address1 {
+    @include customerform_field(12);
+  }
+  &__address2 {
+    @include customerform_field(12);
+  }
+  &__city {
+    @include customerform_field(4);
+  }
+  &__state {
+    @include customerform_field(4);
+  }
+  &__code {
+    @include customerform_field(4);
+  }
+  &__submit {
+    @include button($expand: true, $background: $primary-color);
+  }
+  &__errors {
+      color: $alert-color;
+  }
+}
