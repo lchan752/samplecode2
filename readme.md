@@ -72,6 +72,7 @@ source ./venv/bin/activate
 pip install -r requirements.txt
 flask db upgrade
 flask run  # backend will run at http://localhost:5000
+flask postcards send_anniversary_postcards  # to send out postcards via lob
 pytest  # to run tests
 ```
 
