@@ -50,3 +50,35 @@ Customer detail page
 
 Make API call to lob to create postcard for each customer on anniversary.
 Run this via a cronjob on a daily basis.
+
+## Running locally
+
+### Backend
+
+Make ./backend/.env file with following content
+```
+FLASK_ENV=development
+FLASK_APP=samplecode
+LOB_SECRET_KEY=your-lob-secret-key
+DATABASE_URI=sqlite:////tmp/samplecode.db
+TEST_DATABASE_URI=sqlite:////tmp/samplecode_test.db
+```
+
+Setup virtualenv, install dependencies, setup database, run server
+```
+cd backend/
+python3 -m venv ./venv/
+source ./venv/bin/activate
+pip install -r requirements.txt
+flask db upgrade
+flask run  # backend will run at http://localhost:5000
+pytest  # to run tests
+```
+
+### Frontend
+
+```
+cd frontend/
+npm install
+npm start  # frontend will run at http://localhost:3000
+```
